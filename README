@@ -1,1 +1,17 @@
 A C++ implementation of the Particle Swarm Optimization for solving the Traveling Salesman Problem.
+
+Concepts we need to implement:
+    position of a particle (an ordered list of nodes)
+    velocity of a particle (a list of positions to swap)
+    subtraction of positions, which yields a velocity
+    multiplication of a velocity by a real
+       appends velocity to itself x times, where x is the real.
+       parial appending for fractions
+       reverse the velocity first if real is negative
+    addition of velocities
+        append second velocity onto first
+    addition of position and velocity
+        apply all swaps of velocity in order on the position's node list
+
+
+
