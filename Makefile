@@ -1,5 +1,8 @@
-test: velocity.o position.o test.o
-	g++ velocity.o position.o test.o -o test
+test: velocity.o position.o particle.o test.o
+	g++ velocity.o position.o particle.o test.o -o test
+
+particle.o: particle.cpp particle.h
+	g++ -c particle.cpp
 
 velocity.o: velocity.cpp velocity.h
 	g++ -c velocity.cpp

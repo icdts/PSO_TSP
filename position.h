@@ -1,6 +1,9 @@
 #include "velocity.h"
 #include <vector>
 
+#ifndef POSITION
+#define POSITION
+
 class Position{
 public:
 	Position();
@@ -12,3 +15,5 @@ public:
 	Position& add_node(int new_n);
     std::vector<int> nodes;
 };
+
+#endif

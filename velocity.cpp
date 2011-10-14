@@ -1,4 +1,5 @@
 #include "velocity.h"
+#include <iostream>
 
 Velocity::Velocity(){
     this->size = 0;
@@ -8,6 +9,13 @@ Velocity::Velocity(const Velocity &v){
 	this->size = 0;
 	for(int i = 0; i < v.size; i++){
 		this->add_transposition(v.from[i], v.to[i]);
+	}
+}
+
+Velocity::Velocity(std::vector<int> _from, std::vector<int> _to){
+	this->size = 0;
+	for(int i = 0; i < _from.size(); i++){
+		this->add_transposition(_from[i],_to[i]);
 	}
 }
 
@@ -67,8 +75,10 @@ Velocity& Velocity::operator*=(const double &rhs){
     }
 }
 
-Velocity& Velocity:: operator*(const double &rhs){
-	return Velocity(*this) *= rhs;
+Velocity Velocity::operator*(const double &rhs){
+	Velocity ret = Velocity(*this);
+	ret *= rhs;
+	return Velocity(ret.from,ret.to);
 }
 
 Velocity& Velocity::operator+(const Velocity &rhs){

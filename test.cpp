@@ -1,3 +1,5 @@
+#include "particle.h"
+#include "velocity.h"
 #include "position.h"
 #include <iostream>
 #include <string>
@@ -11,6 +13,7 @@ int main(){
     a.add_transposition(0,1);
     a.add_transposition(2,0);
 
+
 	Position p,q;
 
 	for(int i = 0; i < 10; i++){
@@ -20,10 +23,6 @@ int main(){
 	for(int i = 9; i >= 0; i--){
 		q.add_node(i);
 	}
-
-	print_position(p,"p");
-
-	p += a;
 
 	print_position(p,"p");
 	print_position(q,"q");
@@ -40,6 +39,23 @@ int main(){
 	print_position(p,"p");
 	print_position(q,"q");
 
+
+	Particle part;
+	int** adj_matrix = new int*[10];
+	for(int i = 0; i < 10; i++){
+		adj_matrix[i] = new int[10];
+		for(int j = 0; j < 10; j++){
+			adj_matrix[i][j] = i * j;
+		}
+	}
+
+	part.velocity = a;
+	part.position = p;
+
+	part.move(adj_matrix, 2000);
+
+	print_position(part.position, "part.position");
+	print_position(p+a, "p+a");
 
     return 0;
 }
