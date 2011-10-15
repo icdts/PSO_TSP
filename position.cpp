@@ -21,7 +21,7 @@ Position& Position::operator=(const Position &rhs){
 
 Position& Position::operator+=(const Velocity &v){
     for(int i = 0; i < v.size; i++){
-        int tmp = nodes[v.from[i]];
+        Node tmp = nodes[v.from[i]];
         nodes[v.from[i]] = nodes[v.to[i]];
         nodes[v.to[i]] = tmp;
     }
@@ -38,13 +38,13 @@ Velocity Position::operator-(const Position &p){
 	Position tmp_pos(p);
 
     for(int i = 0; i < this->nodes.size(); i++){
-        int look_for = this->nodes[i];
+        Node look_for = this->nodes[i];
         int found_at = -1;
         for(int j = 0; j < tmp_pos.nodes.size(); j++){
             if(tmp_pos.nodes[j] == look_for){
                 found_at = j;
 
-				int tmp = p.nodes[i];
+				Node tmp = p.nodes[i];
 				tmp_pos.nodes[i] = tmp_pos.nodes[j];
 				tmp_pos.nodes[j] = tmp;
                 break;
@@ -60,7 +60,7 @@ Velocity Position::operator-(const Position &p){
     return difference;
 }
 
-Position& Position::add_node(int new_n){
+Position& Position::add_node(Node new_n){
 	this->nodes.push_back(new_n);
 	return *this;
 }

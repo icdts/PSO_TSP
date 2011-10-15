@@ -3,11 +3,13 @@
 #include "position.h"
 #include <iostream>
 #include <string>
+#include <cstdlib>
 
 void print_velocity(Velocity v, std::string name);
 void print_position(Position p, std::string name);
 
 int main(){
+	srand(time(0));
     Velocity a,b;
 
     a.add_transposition(0,1);
@@ -17,11 +19,11 @@ int main(){
 	Position p,q;
 
 	for(int i = 0; i < 10; i++){
-		p.add_node(i);
+		p.add_node(Node(i, rand()%101, rand()%101));
 	}
 	
 	for(int i = 9; i >= 0; i--){
-		q.add_node(i);
+		q.add_node(Node(i, rand()%101, rand()%101));
 	}
 
 	print_position(p,"p");
@@ -52,7 +54,7 @@ int main(){
 	part.velocity = a;
 	part.position = p;
 
-	int val = part.move(adj_matrix, 2000);
+	int val = part.move();
 	std::cout << "Move value is " << val << std::endl;
 	print_position(part.position, "part.position");
 	print_position(p+a, "p+a");
@@ -62,9 +64,9 @@ int main(){
 
 void print_position(Position p, std::string name){
 	std::cout << name << " is:" << std::endl;
-	std::cout << "	(" << p.nodes[0];
+	std::cout << "	(" << p.nodes[0].index;
 	for(int i = 1; i < p.nodes.size(); i++){
-		std::cout << ", " << p.nodes[i];
+		std::cout << ", " << p.nodes[i].index;
 	}
 	std::cout << ")" << std::endl;
 }
