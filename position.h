@@ -1,4 +1,5 @@
 #include "velocity.h"
+#include "node.h"
 #include <vector>
 
 #ifndef POSITION
@@ -12,8 +13,10 @@ public:
 	Position& operator+=(const Velocity & rhs);
 	Position operator+(const Velocity & rhs);
 	Velocity operator-(const Position &p);
-	Position& add_node(int new_n);
-    std::vector<int> nodes;
+	Position& add_node(Node new_n);
+    
+    std::vector<Node> nodes;
+    
 };
 
 #endif
