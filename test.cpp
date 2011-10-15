@@ -19,7 +19,7 @@ int main(){
 	for(int i = 0; i < 10; i++){
 		p.add_node(i);
 	}
-
+	
 	for(int i = 9; i >= 0; i--){
 		q.add_node(i);
 	}
@@ -45,15 +45,15 @@ int main(){
 	for(int i = 0; i < 10; i++){
 		adj_matrix[i] = new int[10];
 		for(int j = 0; j < 10; j++){
-			adj_matrix[i][j] = i * j;
+			adj_matrix[i][j] = 1;
 		}
 	}
 
 	part.velocity = a;
 	part.position = p;
 
-	part.move(adj_matrix, 2000);
-
+	int val = part.move(adj_matrix, 2000);
+	std::cout << "Move value is " << val << std::endl;
 	print_position(part.position, "part.position");
 	print_position(p+a, "p+a");
 

@@ -14,7 +14,7 @@ public:
     Velocity& operator*=(const double &rhs);
     Velocity& operator+=(const Velocity &rhs);
     Velocity operator*(const double &rhs);
-    Velocity& operator+(const Velocity &rhs);
+    Velocity operator+(const Velocity &rhs);
 
     void add_transposition(int a, int b);
     void remove_transposition(int index);

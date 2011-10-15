@@ -27,8 +27,10 @@ Position& Position::operator+=(const Velocity &v){
     }
 }
 
-Position& Position::operator+(const Velocity &v){
-	return (Position(*this) += v);
+Position Position::operator+(const Velocity &v){
+	Position ret(*this);
+	ret += v;
+	return ret;
 }
 
 Velocity Position::operator-(const Position &p){

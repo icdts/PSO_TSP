@@ -76,13 +76,15 @@ Velocity& Velocity::operator*=(const double &rhs){
 }
 
 Velocity Velocity::operator*(const double &rhs){
-	Velocity ret = Velocity(*this);
+	Velocity ret(*this);
 	ret *= rhs;
-	return Velocity(ret.from,ret.to);
+	return ret;
 }
 
-Velocity& Velocity::operator+(const Velocity &rhs){
-    return Velocity(*this) += rhs;
+Velocity Velocity::operator+(const Velocity &rhs){
+	Velocity ret(*this);
+	ret += rhs;
+    return ret;
 }
 
 void Velocity::remove_transposition(int index){
