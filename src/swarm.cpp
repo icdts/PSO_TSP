@@ -19,7 +19,7 @@ void Swarm::read_graph_definition(std::string filename){
 		//std::cout << "File is open" << std::endl;
 		while(graph_file.good()){
 			getline(graph_file,line);
-			std:: cout << "	" << line << std::endl;
+			//std:: cout << "	" << line << std::endl;
 			//First find NODE_COORD_SECTION
 			line = trim(line);
 
