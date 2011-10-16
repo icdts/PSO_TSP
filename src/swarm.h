@@ -21,11 +21,19 @@ public:
 	double best_value;
 	Position best_position;
 private:
+	bool normal_search();
+	bool lazy_descent();
+	bool energetic_descent();
+
+	void particles_back_to_best();
+	bool move_all_slowly();
+
+
 	Swarm();//shouldn't be using this
 	std::string trim(std::string);
 	void assign_particle_positions();
 	Position shuffle();
-	
+
 	double self_trust;
 	double past_trust;
 	double global_trust;

@@ -6,6 +6,106 @@ Swarm::Swarm(int particle_count, float self_trust, float past_trust, float globa
 	this->global_trust = global_trust;
 }
 
+double Swarm::solve(){
+	int moves_since_best_changed = 0;
+
+	while(moves_since_best_changed <= 4){
+		bool best_changed = false;
+
+		if( moves_since_best_changed < 2 ){
+			best_changed = normal_search();
+		}else{
+			if( moves_since_best_changed < 4 ){
+				best_changed = lazy_descent();
+			}else{
+				best_changed = energetic_descent();
+			}
+		}
+		if(!best_changed){
+			moves_since_best_changed++;
+		}else{
+			moves_since_best_changed = 0;
+		}
+	}
+	return this->best_value;
+}
+
+
+bool Swarm::normal_search(){
+	bool best_changed = false;
+	double tmp;
+	for(int i = 0; i < this->particles.size(); i++){
+		this->particles[i].calculate_new_velocity(this->best_position);
+
+		tmp = this->particles[i].move();
+		if(this->best_value > tmp){
+			this->best_value = tmp;
+			this->best_position = this->particles[i].position;
+			best_changed = true;
+		}
+	}
+
+	return best_changed;
+}
+
+bool Swarm::lazy_descent(){
+	bool best_changed = false;
+	int maximum_moves = this->nodes.size();
+
+	//Move all particles to their last best position
+	particles_back_to_best();	
+
+	//Search around their best's, moving slowly.  Stop if best changes.
+	int count = 0;
+	while( count < maximum_moves && !best_changed ){
+		best_changed = move_all_slowly();	
+	}
+
+	return best_changed;
+}
+
+bool Swarm::energetic_descent(){
+	bool best_changed = true;
+	int maximum_moves = this->nodes.size();
+	
+	//Move all particles to their last position
+	particles_back_to_best();	
+
+	//Move slowly around bests as long as we find a better solution in
+		//under maximum_moves
+	while(best_changed){
+		best_changed = false;
+		for(int i = 0; i < maximum_moves; i++){
+			best_changed = move_all_slowly();
+		}
+	}
+
+	return best_changed;
+}
+
+void Swarm::particles_back_to_best(){
+	for(int i = 0; i < this->particles.size(); i++){
+		this->particles[i].position = this->particles[i].best_position;
+	}
+}
+
+bool Swarm::move_all_slowly(){
+	bool best_changed = false;
+	for(int i = 0; i < this->particles.size(); i++){
+		Velocity v;
+		v.add_transposition(rand() % this->nodes.size(),rand() % this->nodes.size());
+		this->particles[i].velocity = v;
+		double val = this->particles[i].move();
+
+		if( val < this->best_value ){
+			this->best_value = val;
+			this->best_position = this->particles[i].position;
+			best_changed = true;
+		}
+	}
+	return best_changed;
+}
+
 void Swarm::read_graph_definition(std::string filename){
 	std::ifstream graph_file;
 	std::string line;
@@ -77,31 +177,6 @@ void Swarm::assign_particle_positions(){
 		}
 		//std::cout << "Done with " << i << std::endl;
 	}
-}
-
-double Swarm::solve(){
-	int moves_since_best_changed = 0;
-	double tmp;
-
-	while(moves_since_best_changed < 4){
-		bool best_changed = false;
-
-		for(int i = 0; i < this->particles.size(); i++){
-			this->particles[i].calculate_new_velocity(this->best_position);
-
-			tmp = this->particles[i].move();
-			if(this->best_value > tmp){
-				this->best_value = tmp;
-				this->best_position = this->particles[i].position;
-				moves_since_best_changed = 0;
-				best_changed = true;
-			}
-		}
-		if(!best_changed){
-			moves_since_best_changed++;
-		}
-	}
-	return this->best_value;
 }
 
 Position Swarm::shuffle(){
