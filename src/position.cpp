@@ -20,11 +20,13 @@ Position& Position::operator=(const Position &rhs){
 }
 
 Position& Position::operator+=(const Velocity &v){
+	//std::cout << "	Inside += position before: " << this->to_string() << std::endl;
     for(int i = 0; i < v.size; i++){
         Node tmp = nodes[v.from[i]];
         nodes[v.from[i]] = nodes[v.to[i]];
         nodes[v.to[i]] = tmp;
     }
+	//std::cout << "	Inside += position after: " << this->to_string() << std::endl;
 }
 
 Position Position::operator+(const Velocity &v){

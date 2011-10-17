@@ -1,17 +1,19 @@
 A C++ implementation of the Particle Swarm Optimization for solving the Traveling Salesman Problem.
 
-Concepts we need to implement:
-    position of a particle (an ordered list of nodes)
-    velocity of a particle (a list of positions to swap)
-    subtraction of positions, which yields a velocity
-    multiplication of a velocity by a real
-       appends velocity to itself x times, where x is the real.
-       parial appending for fractions
-       reverse the velocity first if real is negative
-    addition of velocities
-        append second velocity onto first
-    addition of position and velocity
-        apply all swaps of velocity in order on the position's node list
+Files included:
+	Makefile => A standard make file that compiles the project.
+	src/* => all source files.  pso_opt.cpp is the driver, all others are pieces of the program.
+	obj/* => empty folder for object files, used for the Makefile
+	bin/* => empty folder for the compiled binary
+	tests/* => the problems I collected data from
 
+	euc.rb => ruby script.  Removes files from tests folder that aren't EUC_2D problems.
+	testing.rb => ruby script.  Runs the binary 5 times for each file in tests, outputs run data to csv format (both stdout and results.csv)
 
-
+	no_rehope_data.csv => All data collected using simple, no rehope implementation.
+	rehope_data.csv => All data collected using final version.
+	no_rehope_avg_time_taken.csv => Data used in charting the average time taken.
+	no_rehope_opt_comparison.csv => Data used in charting the distance between the best value found and the real optimum.
+	rehope_avg_time_taken.csv => Data used in charting the average time taken.
+	rehope_opt_comparison.csv => Data used in charting the distance between the best value found and the real optimum.
+	real_values.csv => Correct optimums for all test files used.

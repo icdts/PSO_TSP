@@ -11,7 +11,7 @@ double Swarm::solve(){
 
 	while(moves_since_best_changed <= 4){
 		bool best_changed = false;
-
+		
 		if( moves_since_best_changed < 2 ){
 			best_changed = normal_search();
 		}else{
@@ -26,6 +26,7 @@ double Swarm::solve(){
 		}else{
 			moves_since_best_changed = 0;
 		}
+		//std::cout << "Best value so far: " << this->best_value << std::endl;
 	}
 	return this->best_value;
 }
@@ -59,6 +60,7 @@ bool Swarm::lazy_descent(){
 	int count = 0;
 	while( count < maximum_moves && !best_changed ){
 		best_changed = move_all_slowly();	
+		count++;
 	}
 
 	return best_changed;
@@ -93,7 +95,10 @@ bool Swarm::move_all_slowly(){
 	bool best_changed = false;
 	for(int i = 0; i < this->particles.size(); i++){
 		Velocity v;
-		v.add_transposition(rand() % this->nodes.size(),rand() % this->nodes.size());
+		int a = rand() % this->nodes.size();
+		int b = rand() % this->nodes.size();
+		
+		v.add_transposition(a,b);
 		this->particles[i].velocity = v;
 		double val = this->particles[i].move();
 
@@ -116,7 +121,6 @@ void Swarm::read_graph_definition(std::string filename){
 
 	graph_file.open(filename.c_str());
 	if(graph_file.is_open()){
-		//std::cout << "File is open" << std::endl;
 		while(graph_file.good()){
 			getline(graph_file,line);
 			//std:: cout << "	" << line << std::endl;
@@ -127,7 +131,6 @@ void Swarm::read_graph_definition(std::string filename){
 				break;
 			}
 		}
-		//std::cout << "Found NODE_COORD_SECTION" << std::endl;
 
 		//Read in nodes
 		while(graph_file.good()){
@@ -144,7 +147,6 @@ void Swarm::read_graph_definition(std::string filename){
 			if(n.index > 0){
 				n.index--; //We index from 0, file indexes from 1
 				
-				//std::cout << "	Read node: (" << n.index << ", " << n.x << ", " << n.y << ")" << std::endl;
 				this->nodes.push_back(n);
 			}
 		}
@@ -153,29 +155,22 @@ void Swarm::read_graph_definition(std::string filename){
 		throw(-1);
 	}
 
-	//std::cout << "Assign particle Positions" << std::endl;
 	assign_particle_positions();
 }
 
 void Swarm::assign_particle_positions(){
-	//std::cout << "Clear current particles" << std::endl;
 	this->particles.clear();
 	for(int i = 0; i < this->particle_count; i++ ){	
-		//std::cout << "Create particle " << i << std::endl;
 		this->particles.push_back( Particle(this->self_trust, this->past_trust, this->global_trust) );
 
 		this->particles[i].position = shuffle();
-		//std::cout << "	Picked position: " << this->particles[i].position.to_string() << std::endl;
 
-		///std::cout << "	Calculate Value" << std::endl;
 		double cur_value = this->particles[i].calculate_value();
 
-		//std::cout << "	Best Value check" << std::endl;
 		if(i==0 || this->best_value > cur_value){
 			this->best_value = cur_value;
 			this->best_position = this->particles[i].position;
 		}
-		//std::cout << "Done with " << i << std::endl;
 	}
 }
 

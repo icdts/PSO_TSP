@@ -1,6 +1,8 @@
 #!/usr/bin/ruby
 
-particle_counts = (2..9).to_a | (1..9).to_a.map{|i| i*10} | (1..5).to_a.map{|i| i*100}
+#particle_counts = (2..9).to_a | (1..9).to_a.map{|i| i*10} | (1..5).to_a.map{|i| i*100}
+#particle_counts = (7..9).to_a.map{|i| i*10} | (1..5).to_a.map{|i| i*100}
+particle_counts = [400]
 
 
 output = File.open("results.csv", "w")

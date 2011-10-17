@@ -9,11 +9,15 @@ Particle::Particle(double self_trust,double past_trust,double global_trust){
 }
 
 double Particle::move(){
+	//std::cout << "Velocity: " << velocity.to_string() << std::endl;
     position += velocity;
+	//std::cout << "New position: " << position.to_string() << std::endl;
 
     double new_value = this->calculate_value();
+	//std::cout << new_value << std::endl;
     if(new_value < this->best_value || this->best_value < 0){
         this->best_value = new_value;
+		this->best_position = position;
     }
 	
     return this->best_value;
