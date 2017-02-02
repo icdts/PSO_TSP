@@ -3,6 +3,7 @@
 Swarm::Swarm(int particle_count, float self_trust, float past_trust, float global_trust){
   this->particle_count = particle_count;
   this->self_trust = self_trust;
+  this->past_trust = past_trust;
   this->global_trust = global_trust;
 }
 
