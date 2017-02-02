@@ -17,9 +17,9 @@ public:
   Velocity operator-(const Position &p);
   Position& add_node(Node new_n);
   std::string to_string();
-    
-    std::vector<Node> nodes;
-    
+
+  std::vector<Node> nodes;
+
 };
 
 #endif

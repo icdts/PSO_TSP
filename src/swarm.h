@@ -16,7 +16,7 @@ public:
   void read_graph_definition(std::string filename);
   double solve();
 
-    std::vector<Particle> particles;
+  std::vector<Particle> particles;
   std::vector<Node> nodes;
   double best_value;
   Position best_position;

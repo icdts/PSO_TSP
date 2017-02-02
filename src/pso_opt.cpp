@@ -41,7 +41,8 @@ int main(int argc, char* argv[]){
     std::cout << val << std::endl;
   }else{
     std::cout << "Invalid args.  Usage:" << std::endl;
-    std::cout << "  pso_opt <filename> <particle_count> <self_trust> <past_trust> <global_trust>" << std::endl;
+    std::cout << "  pso_opt <graph_file> <particle_count> <self_trust> <past_trust> <global_trust>" << std::endl;
+    std::cout << "    Note: the three trust values should sum to 1" << std::endl;
   }
   return 0;
 }
