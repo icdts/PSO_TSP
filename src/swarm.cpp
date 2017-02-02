@@ -151,7 +151,7 @@ void Swarm::read_graph_definition(std::string filename){
       }
     }
   }else{
-    std::cout << "Could not open file" << std::endl;
+    std::cout << "Could not open file: " << filename << std::endl;
     throw(-1);
   }
 

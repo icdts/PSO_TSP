@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
     Swarm s(particle_count,self_trust,past_trust,global_trust);
 
     std::string name(argv[1]);
-    s.read_graph_definition("/home/robb/workspace/ai/PSO_TSP/tests/" + name);
+    s.read_graph_definition(name);
 
     val = s.solve();
     std::cout << val << std::endl;
