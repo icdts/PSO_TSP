@@ -7,7 +7,7 @@
 class Node{
 public:
     Node(int _index, double _x, double _y);
-	bool operator==(const Node &rhs);
+  bool operator==(const Node &rhs);
 
     int index;
     double x;

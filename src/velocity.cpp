@@ -6,17 +6,17 @@ Velocity::Velocity(){
 }
 
 Velocity::Velocity(const Velocity &v){
-	this->size = 0;
-	for(int i = 0; i < v.size; i++){
-		this->add_transposition(v.from[i], v.to[i]);
-	}
+  this->size = 0;
+  for(int i = 0; i < v.size; i++){
+    this->add_transposition(v.from[i], v.to[i]);
+  }
 }
 
 Velocity::Velocity(std::vector<int> _from, std::vector<int> _to){
-	this->size = 0;
-	for(int i = 0; i < _from.size(); i++){
-		this->add_transposition(_from[i],_to[i]);
-	}
+  this->size = 0;
+  for(int i = 0; i < _from.size(); i++){
+    this->add_transposition(_from[i],_to[i]);
+  }
 }
 
 Velocity& Velocity::operator=(const Velocity &rhs){
@@ -44,21 +44,21 @@ Velocity& Velocity::operator+=(const Velocity &rhs){
 
 Velocity& Velocity::operator*=(const double &rhs){
     double d = rhs;
-	//std::cout << "d: " << d << std::endl;
-	std::vector<int> from(this->from);
-	std::vector<int> to(this->to);
+  //std::cout << "d: " << d << std::endl;
+  std::vector<int> from(this->from);
+  std::vector<int> to(this->to);
 
-	this->from.clear();
-	this->to.clear();
-	int size = this->size;
-	this->size = 0;
+  this->from.clear();
+  this->to.clear();
+  int size = this->size;
+  this->size = 0;
 
     if( 0 != d){
         if( 0 > d ){
-			//std::cout << "d: is negative " << std::endl;
+      //std::cout << "d: is negative " << std::endl;
             d = d * -1;
-			std::reverse(from.begin(), from.end());
-			std::reverse(to.begin(), to.end());
+      std::reverse(from.begin(), from.end());
+      std::reverse(to.begin(), to.end());
         }
 
         if( 0 < d ){
@@ -67,14 +67,14 @@ Velocity& Velocity::operator*=(const double &rhs){
                     this->add_transposition(from[i],to[i]);
                 }
                 d--;
-				//std::cout << "subbed d: " << d << std::endl;
+        //std::cout << "subbed d: " << d << std::endl;
             }
 
-			if(d >= 1){d--;}
+      if(d >= 1){d--;}
 
             if( d > 0 ){
                 int cv = ceil(d* size);
-				//std::cout << "cv: " << cv << std::endl;
+        //std::cout << "cv: " << cv << std::endl;
                 for(int i = 0; i < cv; i++){
                     this->add_transposition(from[i],to[i]);
                 }
@@ -82,18 +82,18 @@ Velocity& Velocity::operator*=(const double &rhs){
         }
     }
 
-	return *this;
+  return *this;
 }
 
 Velocity Velocity::operator*(const double &rhs){
-	Velocity ret(*this);
-	ret *= rhs;
-	return ret;
+  Velocity ret(*this);
+  ret *= rhs;
+  return ret;
 }
 
 Velocity Velocity::operator+(const Velocity &rhs){
-	Velocity ret(*this);
-	ret += rhs;
+  Velocity ret(*this);
+  ret += rhs;
     return ret;
 }
 
@@ -110,16 +110,16 @@ void Velocity::add_transposition(int a, int b){
 }
 
 std::string Velocity::to_string(){
-	std::stringstream ss;
+  std::stringstream ss;
 
-	ss << "(";
-	if( this->size > 0 ){
-		ss << "(" << this->from[0] << ", " << this->to[0] << ")"; 
-		for(int i = 1; i < this->size; i++){
-			ss << ", (" << this->from[i] << ", " << this->to[i] << ")"; 
-		}
-	}
-	ss << ")";
+  ss << "(";
+  if( this->size > 0 ){
+    ss << "(" << this->from[0] << ", " << this->to[0] << ")"; 
+    for(int i = 1; i < this->size; i++){
+      ss << ", (" << this->from[i] << ", " << this->to[i] << ")"; 
+    }
+  }
+  ss << ")";
 
-	return ss.str();
+  return ss.str();
 }

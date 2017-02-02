@@ -10,8 +10,8 @@
 class Velocity{
 public:
     Velocity();
-	Velocity(const Velocity &v);
-	Velocity(std::vector<int> _from, std::vector<int> _to);
+  Velocity(const Velocity &v);
+  Velocity(std::vector<int> _from, std::vector<int> _to);
 
     Velocity& operator=(const Velocity &rhs);
     Velocity& operator*=(const double &rhs);
@@ -19,7 +19,7 @@ public:
     Velocity operator*(const double &rhs);
     Velocity operator+(const Velocity &rhs);
 
-	std::string to_string();
+  std::string to_string();
 
     void add_transposition(int a, int b);
     void remove_transposition(int index);
